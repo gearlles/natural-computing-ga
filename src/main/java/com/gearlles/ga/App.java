@@ -97,7 +97,7 @@ public class App
 	{
 	    ChartUtilities
 		    .saveChartAsJPEG(new File(
-			    "C:\\Users\\Gearlles\\Desktop\\chart.jpg"), chart,
+			    "./chart.jpg"), chart,
 			    500, 300);
 	}
 	catch (IOException e)
