@@ -14,10 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Population;
-import com.gearlles.ga.core.crossover.OnePoint;
 import com.gearlles.ga.core.crossover.TwoPoint;
 import com.gearlles.ga.core.fitness.Rastrigin;
-import com.gearlles.ga.core.mutation.BitMutation;
 import com.gearlles.ga.core.mutation.UniformMutation;
 import com.gearlles.ga.core.selection.Tournament;
 

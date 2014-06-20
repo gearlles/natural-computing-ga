@@ -1,10 +1,7 @@
 package com.gearlles.ga.core;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
-
-import javax.management.RuntimeErrorException;
 
 import com.gearlles.ga.core.selection.SelectionInterface;
 
