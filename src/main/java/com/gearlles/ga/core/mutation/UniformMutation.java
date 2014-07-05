@@ -9,8 +9,8 @@ public class UniformMutation implements MutationInterface {
 	private static Random rand = new Random();
 
 	public Chromosome mutate(Chromosome chromosome) {
-		double lowerLimit = Chromosome.fitnessFunction.LOWER_LIMIT;
-		double upperLimit = Chromosome.fitnessFunction.UPPER_LIMIT;
+		double[] lowerLimit = Chromosome.fitnessFunction.LOWER_LIMIT;
+		double[] upperLimit = Chromosome.fitnessFunction.UPPER_LIMIT;
 
 		double[] gene = chromosome.getGene();
 
@@ -18,7 +18,7 @@ public class UniformMutation implements MutationInterface {
 			if (rand.nextDouble() > Population.mutationRatio) {
 				continue;
 			}
-			gene[i] = lowerLimit + (upperLimit - lowerLimit) * rand.nextDouble();
+			gene[i] = lowerLimit[i] + (upperLimit[i] - lowerLimit[i]) * rand.nextDouble();
 		}
 
 		return new Chromosome(gene);

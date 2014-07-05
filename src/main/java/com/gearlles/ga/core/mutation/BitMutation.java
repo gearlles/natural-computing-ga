@@ -8,8 +8,8 @@ public class BitMutation implements MutationInterface {
 	private static Random rand = new Random();
 
 	public Chromosome mutate(Chromosome chromosome) {
-		double lowerLimit = Chromosome.fitnessFunction.LOWER_LIMIT;
-		double upperLimit = Chromosome.fitnessFunction.UPPER_LIMIT;
+		double[] lowerLimit = Chromosome.fitnessFunction.LOWER_LIMIT;
+		double[] upperLimit = Chromosome.fitnessFunction.UPPER_LIMIT;
 
 		double[] gene = chromosome.getGene();
 
@@ -24,10 +24,10 @@ public class BitMutation implements MutationInterface {
 			boolean negativeDelta = rand.nextBoolean();
 
 			if (negativeDelta) {
-				delta = lowerLimit + (gene[i] - lowerLimit) * rand.nextDouble();
+				delta = lowerLimit[i] + (gene[i] - lowerLimit[i]) * rand.nextDouble();
 				delta *= -1;
 			} else {
-				delta = gene[i] + (upperLimit - gene[i]) * rand.nextDouble();
+				delta = gene[i] + (upperLimit[i] - gene[i]) * rand.nextDouble();
 			}
 
 			gene[i] += delta;

@@ -22,7 +22,7 @@ public class Chromosome implements Comparable<Chromosome> {
 
 		double[] arr = new double[this.size];
 		for (int i = 0; i < arr.length; i++) {
-			arr[i] = fitnessFunction.LOWER_LIMIT + (fitnessFunction.UPPER_LIMIT - fitnessFunction.LOWER_LIMIT)
+			arr[i] = fitnessFunction.LOWER_LIMIT[i] + (fitnessFunction.UPPER_LIMIT[i] - fitnessFunction.LOWER_LIMIT[i])
 					* rand.nextDouble();
 		}
 

@@ -9,8 +9,8 @@ public class BoundaryMutation implements MutationInterface {
 	private static Random rand = new Random();
 
 	public Chromosome mutate(Chromosome chromosome) {
-		double lowerLimit = Chromosome.fitnessFunction.LOWER_LIMIT;
-		double upperLimit = Chromosome.fitnessFunction.UPPER_LIMIT;
+		double[] lowerLimit = Chromosome.fitnessFunction.LOWER_LIMIT;
+		double[] upperLimit = Chromosome.fitnessFunction.UPPER_LIMIT;
 
 		double[] gene = chromosome.getGene();
 
@@ -20,9 +20,9 @@ public class BoundaryMutation implements MutationInterface {
 			}
 
 			if (rand.nextBoolean()) {
-				gene[i] = lowerLimit;
+				gene[i] = lowerLimit[i];
 			} else {
-				gene[i] = upperLimit;
+				gene[i] = upperLimit[i];
 			}
 		}
 

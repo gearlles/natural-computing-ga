@@ -32,7 +32,7 @@ public class App {
 		Population.mutationRatio = 0.05f;
 
 		Chromosome.crossover = new TwoPoint();
-		Chromosome.fitnessFunction = new Rastrigin();
+		Chromosome.fitnessFunction = new Rastrigin(dimension);
 		Chromosome.mutation = new UniformMutation();
 
 		Population.selection = new Tournament(5);

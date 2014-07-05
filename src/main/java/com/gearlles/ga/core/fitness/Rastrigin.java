@@ -1,11 +1,19 @@
 package com.gearlles.ga.core.fitness;
 
 public class Rastrigin extends FitnessFunction {
-	private static final double LOWER_LIMIT = -5.12d;
-	private static final double UPPER_LIMIT = 5.12d;
 
-	public Rastrigin() {
-		super(LOWER_LIMIT, UPPER_LIMIT);
+	public Rastrigin(int dimensions) {
+		this.dimensions = dimensions;
+		
+		LOWER_LIMIT = new double[dimensions];
+		for (int i = 0; i < LOWER_LIMIT.length; i++) {
+			LOWER_LIMIT[i] = -5.12d;
+		}
+		
+		UPPER_LIMIT = new double[dimensions];
+		for (int i = 0; i < UPPER_LIMIT.length; i++) {
+			UPPER_LIMIT[i] = 5.12d;
+		}
 	}
 
 	public double evaluate(double[] gene) {

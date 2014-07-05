@@ -1,12 +1,19 @@
 package com.gearlles.ga.core.fitness;
 
 public class Sphere extends FitnessFunction {
-	// FIXME adjust the limit
-	private static final double LOWER_LIMIT = -10d;
-	private static final double UPPER_LIMIT = 10d;
 
-	public Sphere() {
-		super(LOWER_LIMIT, UPPER_LIMIT);
+	public Sphere(int dimensions) {
+		this.dimensions = dimensions;
+		
+		LOWER_LIMIT = new double[dimensions];
+		for (int i = 0; i < LOWER_LIMIT.length; i++) {
+			LOWER_LIMIT[i] = -10d;
+		}
+		
+		UPPER_LIMIT = new double[dimensions];
+		for (int i = 0; i < UPPER_LIMIT.length; i++) {
+			UPPER_LIMIT[i] = 10d;
+		}
 	}
 
 	public double evaluate(double[] gene) {
