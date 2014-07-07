@@ -39,7 +39,7 @@ public class VrpCrossover implements CrossoverInterface {
 			List<NodeVrp> nodes = momRoute.getNodes();
 			for (int j = 0; j < nodes.size(); j++) {
 				NodeVrp node = nodes.get(j);
-				if (!node.equals(a1))  { //  equals é sobrescrito verificando se estão na mesma posição
+				if (!(node.getX() == a1.getX() && node.getY() == a1.getY() ))  { //  equals é sobrescrito verificando se estão na mesma posição
 					double dist = distanceFunction.calculate(node.getX(), node.getY(), a1.getX(), a1.getY());
 					if (dist < closerDistance) {
 						closerDistance = dist;
