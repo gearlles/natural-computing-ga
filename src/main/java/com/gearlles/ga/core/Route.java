@@ -7,7 +7,6 @@ import br.poli.ecomp.nestor.cn.graph.distance.DistanceFunction;
 
 public class Route
 {
-
 	private List<NodeVrp> nodes;
 	private double maxCapacity;
 	private DistanceFunction distanceFunction;
@@ -17,6 +16,16 @@ public class Route
 		this.nodes = nodes;
 		this.maxCapacity = maxCapacity;
 		this.distanceFunction = distanceFunction;
+	}
+	
+	public void addNode(NodeVrp node)
+	{
+		nodes.add(node);
+	}
+	
+	public NodeVrp getNode(int i)
+	{
+		return nodes.get(i);
 	}
 
 	public double calculateTimeSpentWithOrigin(NodeVrp depot)
@@ -37,5 +46,35 @@ public class Route
 
 		return routeTime;
 	}
+	
+	public double getLoad()
+	{
+		double load = 0;
+		for(NodeVrp node : nodes)
+		{
+			load += node.getDemand();
+		}
+		
+		return load;
+	}
 
+	public double getMaxCapacity()
+	{
+		return maxCapacity;
+	}
+
+	public void setMaxCapacity(double maxCapacity)
+	{
+		this.maxCapacity = maxCapacity;
+	}
+
+	public List<NodeVrp> getNodes()
+	{
+		return nodes;
+	}
+
+	public void setNodes(List<NodeVrp> nodes)
+	{
+		this.nodes = nodes;
+	}
 }
