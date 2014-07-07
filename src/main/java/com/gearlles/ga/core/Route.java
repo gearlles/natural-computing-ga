@@ -38,4 +38,8 @@ public class Route
 		return routeTime;
 	}
 
+	public List<NodeVrp> getNodes() {
+		return nodes;
+	}
+
 }
