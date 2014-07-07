@@ -1,5 +1,6 @@
 package com.gearlles.ga.core;
 
+import java.util.List;
 import java.util.Random;
 
 import com.gearlles.ga.core.crossover.CrossoverInterface;
@@ -7,7 +8,7 @@ import com.gearlles.ga.core.fitness.FitnessFunction;
 import com.gearlles.ga.core.mutation.MutationInterface;
 
 public class Chromosome implements Comparable<Chromosome> {
-	private double[] gene;
+	private List<Route> gene;
 	private double fitness;
 	private int size;
 
