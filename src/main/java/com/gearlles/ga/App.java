@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Population;
 import com.gearlles.ga.core.crossover.TwoPoint;
-import com.gearlles.ga.core.fitness.Rastrigin;
+import com.gearlles.ga.core.fitness.VrpFitness;
 import com.gearlles.ga.core.mutation.UniformMutation;
 import com.gearlles.ga.core.selection.Tournament;
 
@@ -32,7 +32,7 @@ public class App {
 		Population.mutationRatio = 0.05f;
 
 		Chromosome.crossover = new TwoPoint();
-		Chromosome.fitnessFunction = new Rastrigin(dimension);
+		Chromosome.fitnessFunction = new VrpFitness();
 		Chromosome.mutation = new UniformMutation();
 
 		Population.selection = new Tournament(5);

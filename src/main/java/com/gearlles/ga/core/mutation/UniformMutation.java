@@ -1,9 +1,11 @@
 package com.gearlles.ga.core.mutation;
 
+import java.util.List;
 import java.util.Random;
 
 import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Population;
+import com.gearlles.ga.core.Route;
 
 public class UniformMutation implements MutationInterface {
 	private static Random rand = new Random();
@@ -12,13 +14,15 @@ public class UniformMutation implements MutationInterface {
 		double[] lowerLimit = Chromosome.fitnessFunction.LOWER_LIMIT;
 		double[] upperLimit = Chromosome.fitnessFunction.UPPER_LIMIT;
 
-		double[] gene = chromosome.getGene();
+		List<Route> gene = chromosome.getGene();
 
-		for (int i = 0; i < gene.length; i++) {
+		for (int i = 0; i < gene.size(); i++) {
 			if (rand.nextDouble() > Population.mutationRatio) {
 				continue;
 			}
-			gene[i] = lowerLimit[i] + (upperLimit[i] - lowerLimit[i]) * rand.nextDouble();
+			// FIXME dentro do intervalo do mapa
+			//gene[i] = lowerLimit[i] + (upperLimit[i] - lowerLimit[i]) * rand.nextDouble();
+			gene.add(new Route());
 		}
 
 		return new Chromosome(gene);

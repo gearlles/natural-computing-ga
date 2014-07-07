@@ -1,5 +1,6 @@
 package com.gearlles.ga.core;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -21,10 +22,9 @@ public class Chromosome implements Comparable<Chromosome> {
 	public Chromosome(int chromosomeSize) {
 		this.size = chromosomeSize;
 
-		double[] arr = new double[this.size];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = fitnessFunction.LOWER_LIMIT[i] + (fitnessFunction.UPPER_LIMIT[i] - fitnessFunction.LOWER_LIMIT[i])
-					* rand.nextDouble();
+		List<Route> arr = new ArrayList<Route>();
+		for (int i = 0; i < arr.size(); i++) {
+			arr.add(new Route()); // TODO dentro dos limitesdo mapa
 		}
 
 		this.gene = arr;
@@ -32,13 +32,13 @@ public class Chromosome implements Comparable<Chromosome> {
 
 	}
 
-	public Chromosome(double[] gene) {
+	public Chromosome(List<Route> gene) {
 		this.gene = gene;
-		this.size = gene.length;
+		this.size = gene.size();
 		this.fitness = fitnessFunction.evaluate(gene);
 	}
 
-	public double[] getGene() {
+	public List<Route> getGene() {
 		return gene;
 	}
 
