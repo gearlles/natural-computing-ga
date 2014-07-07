@@ -24,9 +24,9 @@ public class VrpCrossover implements CrossoverInterface {
 		
 		// 0, 1, 2, 3, 4, 5   size = 6
 		int randomSubRoutStart = rand.nextInt(dadGene.size() - 1); // 0 até 4
-		int randomSubRoutEnd = randInt(randomSubRoutStart + 1, dadGene.size() - 1); // do número escolhido acima, até o fim (inicio, fim]
+		int randomSubRoutEnd = randInt(randomSubRoutStart + 1, dadGene.size() - 1); // do número escolhido acima, até o fim (inicio, fim[
 		
-		List<NodeVrp> subRoute = dadGene.get(randomRoute).getNodes().subList(randomSubRoutStart, randomSubRoutEnd);
+		List<NodeVrp> subRoute = dadGene.get(randomRoute).getNodes().subList(randomSubRoutStart, randomSubRoutEnd + 1);
 		NodeVrp a1 = subRoute.get(0);
 		
 		// achar o nó mais próximo de a1
