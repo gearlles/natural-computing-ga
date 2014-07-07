@@ -12,6 +12,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.poli.ecomp.nestor.cn.graph.MapVrp;
+
 import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Population;
 import com.gearlles.ga.core.crossover.TwoPoint;
@@ -42,7 +44,7 @@ public class App {
 
 		for (int k = 0; k < 30; k++) {
 			// Create the first population and initializate it
-			Population pop = new Population(dimension, populationSize);
+			Population pop = new Population(null, dimension, populationSize);
 
 			Chromosome best = pop.getPopulation()[0];
 			bestFitness = best.getFitness();
