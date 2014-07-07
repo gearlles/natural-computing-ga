@@ -77,4 +77,8 @@ public class Route
 	{
 		this.nodes = nodes;
 	}
+
+	public DistanceFunction getDistanceFunction() {
+		return distanceFunction;
+	}
 }
