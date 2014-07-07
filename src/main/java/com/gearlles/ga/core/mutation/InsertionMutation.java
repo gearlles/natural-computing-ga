@@ -1,6 +1,7 @@
 package com.gearlles.ga.core.mutation;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -28,14 +29,17 @@ public class InsertionMutation implements MutationInterface
 		for (int i = 0; i < genesSize; i++)
 		{
 			Route r = gene.get(i);
-			for (NodeVrp node : r.getNodes())
+			Iterator<NodeVrp> iter = r.getNodes().iterator();
+			while (iter.hasNext())
 			{
+				NodeVrp node = iter.next();
+				
 				if (rand.nextDouble() > Population.mutationRatio)
 				{
 					continue;
 				}
 
-				r.getNodes().remove(node);
+				iter.remove();
 
 				int V = chromosome.getMap().getFleetSize();
 
