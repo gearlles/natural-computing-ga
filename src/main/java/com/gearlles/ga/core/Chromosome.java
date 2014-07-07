@@ -1,43 +1,38 @@
 package com.gearlles.ga.core;
 
+import java.util.List;
 import java.util.Random;
 
 import com.gearlles.ga.core.crossover.CrossoverInterface;
 import com.gearlles.ga.core.fitness.FitnessFunction;
 import com.gearlles.ga.core.mutation.MutationInterface;
 
-public class Chromosome implements Comparable<Chromosome> {
-	private double[] gene;
+public class Chromosome<T extends Comparable<T>> implements Comparable<Chromosome<T>> {
+	private List<T> gene;
 	private double fitness;
 	private int size;
 
 	private static final Random rand = new Random();
 
-	public static FitnessFunction fitnessFunction;
-	public static CrossoverInterface crossover;
-	public static MutationInterface mutation;
+	public FitnessFunction<T> fitnessFunction;
+	public CrossoverInterface<T> crossover;
+	public MutationInterface<T> mutation;
 
-	public Chromosome(int chromosomeSize) {
+	public Chromosome(int chromosomeSize, FitnessFunction<T> fitnessFunction) {
 		this.size = chromosomeSize;
 
-		double[] arr = new double[this.size];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = fitnessFunction.LOWER_LIMIT[i] + (fitnessFunction.UPPER_LIMIT[i] - fitnessFunction.LOWER_LIMIT[i])
-					* rand.nextDouble();
-		}
-
-		this.gene = arr;
+		this.gene = fitnessFunction.getRandom();
 		this.fitness = fitnessFunction.evaluate(gene);
 
 	}
 
-	public Chromosome(double[] gene) {
+	public Chromosome(List<T> gene, FitnessFunction<T> fitnessFunction) {
 		this.gene = gene;
-		this.size = gene.length;
+		this.size = gene.size();
 		this.fitness = fitnessFunction.evaluate(gene);
 	}
 
-	public double[] getGene() {
+	public List<T> getGene() {
 		return gene;
 	}
 
@@ -47,15 +42,15 @@ public class Chromosome implements Comparable<Chromosome> {
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Chromosome)) {
+		if (!(o instanceof Chromosome<?>)) {
 			return false;
 		}
 
-		Chromosome c = (Chromosome) o;
+		Chromosome<T> c = (Chromosome<T>) o;
 		return (gene.equals(c.gene) && fitness == c.fitness);
 	}
-
-	public int compareTo(Chromosome o) {
+	
+	public int compareTo(Chromosome<T> o) {
 		if (fitness < o.fitness) {
 			return -1;
 		} else if (fitness > o.fitness) {
@@ -64,4 +59,17 @@ public class Chromosome implements Comparable<Chromosome> {
 
 		return 0;
 	}
+
+	public FitnessFunction<T> getFitnessFunction() {
+		return fitnessFunction;
+	}
+
+	public CrossoverInterface<T> getCrossover() {
+		return crossover;
+	}
+
+	public MutationInterface<T> getMutation() {
+		return mutation;
+	}
+
 }

@@ -14,9 +14,13 @@ import org.slf4j.LoggerFactory;
 
 import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Population;
+import com.gearlles.ga.core.crossover.CrossoverInterface;
 import com.gearlles.ga.core.crossover.TwoPoint;
+import com.gearlles.ga.core.fitness.FitnessFunction;
 import com.gearlles.ga.core.fitness.Rastrigin;
+import com.gearlles.ga.core.mutation.MutationInterface;
 import com.gearlles.ga.core.mutation.UniformMutation;
+import com.gearlles.ga.core.selection.SelectionInterface;
 import com.gearlles.ga.core.selection.Tournament;
 
 public class App {
@@ -31,25 +35,25 @@ public class App {
 		Population.elitismRatio = 0f;
 		Population.mutationRatio = 0.05f;
 
-		Chromosome.crossover = new TwoPoint();
-		Chromosome.fitnessFunction = new Rastrigin(dimension);
-		Chromosome.mutation = new UniformMutation();
+		CrossoverInterface<Double> crossover = new TwoPoint<Double>();
+		FitnessFunction<Double> fitnessFunction= new Rastrigin(dimension);
+		MutationInterface<Double> mutation = new UniformMutation<Double>();
 
-		Population.selection = new Tournament(5);
+		SelectionInterface<Double> selection = new Tournament<Double>(5);
 
 		double[] generationResults = new double[maxGenerations];
 		double bestFitness = Double.MAX_VALUE;
 
 		for (int k = 0; k < 30; k++) {
 			// Create the first population and initializate it
-			Population pop = new Population(dimension, populationSize);
+			Population<Double> pop = new Population<Double>(dimension, populationSize, selection, crossover, mutation, fitnessFunction);
 
-			Chromosome best = pop.getPopulation()[0];
+			Chromosome<Double> best = (Chromosome<Double>) pop.getPopulation().get(0);
 			bestFitness = best.getFitness();
 
 			for (int i = 0; i < maxGenerations; i++) {
 				pop.evolve();
-				best = pop.getPopulation()[0];
+				best = pop.getPopulation().get(0);
 
 				if (bestFitness > best.getFitness()) {
 					bestFitness = best.getFitness();
