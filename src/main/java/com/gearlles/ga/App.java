@@ -49,6 +49,7 @@ public class App {
 
 			for (int i = 0; i < maxGenerations; i++) {
 				pop.evolve();
+				
 				best = pop.getPopulation()[0];
 
 				if (bestFitness > best.getFitness()) {
