@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import br.poli.ecomp.nestor.cn.graph.MapVrp;
+import br.poli.ecomp.nestor.cn.graph.Node;
+import br.poli.ecomp.nestor.cn.graph.NodeVrp;
+
 import com.gearlles.ga.core.crossover.CrossoverInterface;
 import com.gearlles.ga.core.fitness.FitnessFunction;
 import com.gearlles.ga.core.mutation.MutationInterface;
@@ -12,6 +16,7 @@ public class Chromosome implements Comparable<Chromosome> {
 	private List<Route> gene;
 	private double fitness;
 	private int size;
+	private MapVrp map;
 
 	private static final Random rand = new Random();
 
@@ -19,12 +24,30 @@ public class Chromosome implements Comparable<Chromosome> {
 	public static CrossoverInterface crossover;
 	public static MutationInterface mutation;
 
-	public Chromosome(int chromosomeSize) {
+	public Chromosome(int chromosomeSize, MapVrp map) {
 		this.size = chromosomeSize;
+		this.map = map;
 
+		List<Node> nodes = (List<Node>) map.getNodes().clone();
 		List<Route> arr = new ArrayList<Route>();
-		for (int i = 0; i < arr.size(); i++) {
-			arr.add(new Route()); // TODO dentro dos limitesdo mapa
+		Route r = new Route(new ArrayList<NodeVrp>(), map.getVehicleCapacity(), map.getFunction());
+		
+		for (int i = 0; i < map.getCountNodes(); i++) {
+			int pos = rand.nextInt(nodes.size());
+			NodeVrp node = (NodeVrp) nodes.remove(pos);
+			
+			if(r.getLoad() + node.getDemand() > r.getMaxCapacity())
+			{
+				arr.add(r);
+				r = new Route(new ArrayList<NodeVrp>(), map.getVehicleCapacity(), map.getFunction());
+			}
+			
+			r.addNode(node);
+		}
+		
+		if(r.getNodes().size() > 0)
+		{
+			arr.add(r);
 		}
 
 		this.gene = arr;
@@ -64,5 +87,15 @@ public class Chromosome implements Comparable<Chromosome> {
 		}
 
 		return 0;
+	}
+
+	public MapVrp getMap()
+	{
+		return map;
+	}
+
+	public void setMap(MapVrp map)
+	{
+		this.map = map;
 	}
 }

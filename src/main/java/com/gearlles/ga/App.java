@@ -16,7 +16,7 @@ import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Population;
 import com.gearlles.ga.core.crossover.TwoPoint;
 import com.gearlles.ga.core.fitness.VrpFitness;
-import com.gearlles.ga.core.mutation.UniformMutation;
+import com.gearlles.ga.core.mutation.InversionMutation;
 import com.gearlles.ga.core.selection.Tournament;
 
 public class App {
@@ -33,7 +33,7 @@ public class App {
 
 		Chromosome.crossover = new TwoPoint();
 		Chromosome.fitnessFunction = new VrpFitness();
-		Chromosome.mutation = new UniformMutation();
+		Chromosome.mutation = new InversionMutation();
 
 		Population.selection = new Tournament(5);
 
