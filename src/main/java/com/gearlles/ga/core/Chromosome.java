@@ -12,7 +12,8 @@ import com.gearlles.ga.core.crossover.CrossoverInterface;
 import com.gearlles.ga.core.fitness.FitnessFunction;
 import com.gearlles.ga.core.mutation.MutationInterface;
 
-public class Chromosome implements Comparable<Chromosome> {
+public class Chromosome implements Comparable<Chromosome>
+{
 	private List<Route> gene;
 	private double fitness;
 	private int size;
@@ -24,28 +25,37 @@ public class Chromosome implements Comparable<Chromosome> {
 	public static CrossoverInterface crossover;
 	public static MutationInterface mutation;
 
-	public Chromosome(int chromosomeSize, MapVrp map) {
+	public Chromosome(int chromosomeSize, MapVrp map)
+	{
 		this.size = chromosomeSize;
 		this.map = map;
 
 		List<Node> nodes = (List<Node>) map.getNodes().clone();
 		List<Route> arr = new ArrayList<Route>();
 		Route r = new Route(new ArrayList<NodeVrp>(), map.getVehicleCapacity(), map.getFunction());
-		
-		for (int i = 0; i < map.getCountNodes(); i++) {
+
+		int amount = 0;
+		for (int i = 0; i < map.getCountNodes(); i++)
+		{
+			if (amount <= 0)
+			{
+				amount = rand.nextInt(map.getCountNodes());
+			}
+
 			int pos = rand.nextInt(nodes.size());
 			NodeVrp node = (NodeVrp) nodes.remove(pos);
-			
-			if(r.getLoad() + node.getDemand() > r.getMaxCapacity())
+
+			if (r.getLoad() + node.getDemand() > r.getMaxCapacity() || r.getNodes().size() > amount)
 			{
 				arr.add(r);
+				amount -= r.getNodes().size();
 				r = new Route(new ArrayList<NodeVrp>(), map.getVehicleCapacity(), map.getFunction());
 			}
-			
+
 			r.addNode(node);
 		}
-		
-		if(r.getNodes().size() > 0)
+
+		if (r.getNodes().size() > 0)
 		{
 			arr.add(r);
 		}
@@ -55,23 +65,28 @@ public class Chromosome implements Comparable<Chromosome> {
 
 	}
 
-	public Chromosome(List<Route> gene) {
+	public Chromosome(List<Route> gene)
+	{
 		this.gene = gene;
 		this.size = gene.size();
 		this.fitness = fitnessFunction.evaluate(gene, map.getDepot());
 	}
 
-	public List<Route> getGene() {
+	public List<Route> getGene()
+	{
 		return gene;
 	}
 
-	public double getFitness() {
+	public double getFitness()
+	{
 		return fitness;
 	}
 
 	@Override
-	public boolean equals(Object o) {
-		if (!(o instanceof Chromosome)) {
+	public boolean equals(Object o)
+	{
+		if (!(o instanceof Chromosome))
+		{
 			return false;
 		}
 
@@ -79,12 +94,17 @@ public class Chromosome implements Comparable<Chromosome> {
 		return (gene.equals(c.gene) && fitness == c.fitness);
 	}
 
-	public int compareTo(Chromosome o) {
-		if (fitness < o.fitness) {
+	public int compareTo(Chromosome o)
+	{
+		if (fitness < o.fitness)
+		{
 			return -1;
-		} else if (fitness > o.fitness) {
-			return 1;
 		}
+		else
+			if (fitness > o.fitness)
+			{
+				return 1;
+			}
 
 		return 0;
 	}
