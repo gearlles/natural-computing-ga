@@ -16,6 +16,7 @@ public class Chromosome implements Comparable<Chromosome> {
 	private List<Route> gene;
 	private double fitness;
 	private int size;
+	private MapVrp map;
 
 	private static final Random rand = new Random();
 
@@ -25,6 +26,7 @@ public class Chromosome implements Comparable<Chromosome> {
 
 	public Chromosome(int chromosomeSize, MapVrp map) {
 		this.size = chromosomeSize;
+		this.map = map;
 
 		List<Node> nodes = (List<Node>) map.getNodes().clone();
 		List<Route> arr = new ArrayList<Route>();
@@ -85,5 +87,15 @@ public class Chromosome implements Comparable<Chromosome> {
 		}
 
 		return 0;
+	}
+
+	public MapVrp getMap()
+	{
+		return map;
+	}
+
+	public void setMap(MapVrp map)
+	{
+		this.map = map;
 	}
 }
