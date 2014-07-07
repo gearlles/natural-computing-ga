@@ -1,6 +1,7 @@
 package com.gearlles.ga.core.crossover;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -54,19 +55,21 @@ public class VrpCrossover implements CrossoverInterface {
 		momSelectedRoute.getNodes().addAll(momCloserRouteNodeIndex + 1, subRoute);
 		
 		// remover nós duplicados
-		for (int i = 0; i < momGeneCopy.size(); i++) {
-			Route momRoute = momGeneCopy.get(i);
-			List<NodeVrp> nodes = momRoute.getNodes();
-			for (int j = 0; j < nodes.size(); j++) {
-				NodeVrp node = nodes.get(j);
-				if (subRoute.contains(node))  { // contains usa equals, que é sobrescrito verificando se estão na mesma posição
-					nodes.remove(j);
+		Iterator<Route> routeIterator = momGeneCopy.iterator();
+		while (routeIterator.hasNext()) {
+			Route route = routeIterator.next();
+			List<NodeVrp> nodes = route.getNodes();
+			Iterator<NodeVrp> nodesIterator = nodes.iterator();
+			while (nodesIterator.hasNext()) {
+				NodeVrp nodeVrp = nodesIterator.next();
+				if (subRoute.contains(nodeVrp)) {
+					nodesIterator.remove();
 				}
 			}
-			
+
 			// se não sobrou nós da rota, remove a rota
-			if (momRoute.getNodes().isEmpty()) {
-				momGeneCopy.remove(momRoute);
+			if (route.getNodes().isEmpty()) {
+				routeIterator.remove();
 			}
 		}
 		
