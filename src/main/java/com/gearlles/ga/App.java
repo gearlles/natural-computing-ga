@@ -42,7 +42,7 @@ public class App {
 
 		for (int k = 0; k < 30; k++) {
 			// Create the first population and initializate it
-			Population pop = new Population(dimension, populationSize);
+			Population pop = new Population(dimension, populationSize, null);
 
 			Chromosome best = pop.getPopulation()[0];
 			bestFitness = best.getFitness();

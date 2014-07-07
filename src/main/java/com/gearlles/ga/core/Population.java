@@ -3,6 +3,8 @@ package com.gearlles.ga.core;
 import java.util.Arrays;
 import java.util.Random;
 
+import br.poli.ecomp.nestor.cn.graph.MapVrp;
+
 import com.gearlles.ga.core.selection.SelectionInterface;
 
 public class Population {
@@ -15,18 +17,20 @@ public class Population {
 
 	private Chromosome[] population;
 	private Random rand = new Random();
+	private MapVrp map;
 
 	public static SelectionInterface selection;
 
-	public Population(int chromosomeSize, int populationSize) {
+	public Population(int chromosomeSize, int populationSize, MapVrp map) {
 		this.chromosomeSize = chromosomeSize;
 		this.populationSize = populationSize;
+		this.map = map;
 
 		// 1. Initialize population
 		this.population = new Chromosome[populationSize];
 		
 		for (int i = 0; i < populationSize; i++) {
-			this.population[i] = new Chromosome(this.chromosomeSize);
+			this.population[i] = new Chromosome(this.chromosomeSize, this.map);
 		}
 
 		Arrays.sort(this.population);
@@ -71,5 +75,15 @@ public class Population {
 
 	public Chromosome[] getPopulation() {
 		return population;
+	}
+
+	public MapVrp getMap()
+	{
+		return map;
+	}
+
+	public void setMap(MapVrp map)
+	{
+		this.map = map;
 	}
 }
