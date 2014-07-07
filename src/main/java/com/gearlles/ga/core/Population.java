@@ -21,7 +21,7 @@ public class Population {
 
 	public static SelectionInterface selection;
 
-	public Population(int chromosomeSize, int populationSize, MapVrp map) {
+	public Population(MapVrp map, int chromosomeSize, int populationSize) {
 		this.chromosomeSize = chromosomeSize;
 		this.populationSize = populationSize;
 		this.map = map;
