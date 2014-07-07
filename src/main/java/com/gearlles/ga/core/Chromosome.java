@@ -51,14 +51,14 @@ public class Chromosome implements Comparable<Chromosome> {
 		}
 
 		this.gene = arr;
-		this.fitness = fitnessFunction.evaluate(gene);
+		this.fitness = fitnessFunction.evaluate(gene, map.getDepot());
 
 	}
 
 	public Chromosome(List<Route> gene) {
 		this.gene = gene;
 		this.size = gene.size();
-		this.fitness = fitnessFunction.evaluate(gene);
+		this.fitness = fitnessFunction.evaluate(gene, map.getDepot());
 	}
 
 	public List<Route> getGene() {
