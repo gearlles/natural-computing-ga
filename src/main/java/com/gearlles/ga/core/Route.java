@@ -27,6 +27,12 @@ public class Route
 	{
 		return nodes.get(i);
 	}
+	
+	@Override
+	public String toString()
+	{
+		return String.valueOf(this.nodes.size());
+	}
 
 	public double calculateTimeSpentWithOrigin(NodeVrp depot)
 	{
