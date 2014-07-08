@@ -74,8 +74,8 @@ public class VrpCrossover implements CrossoverInterface
 
 		// remover nós duplicados
 		List<Route> routesToRemove = new ArrayList<Route>();
-		int removalCounter = 0;
-		int nodeCounter = 0;
+//		int removalCounter = 0;
+//		int nodeCounter = 0;
 		for (int i = 0; i < momGeneCopy.size(); i++)
 		{
 			Route route = momGeneCopy.get(i);
@@ -84,7 +84,7 @@ public class VrpCrossover implements CrossoverInterface
 			
 			for (int j = 0; j < nodes.size(); j++)
 			{
-				nodeCounter++;
+//				nodeCounter++;
 				NodeVrp nodeVrp = nodes.get(j);
 				// nessa verificação não haverá o problema de remover o que
 				// acabamos de colocar
@@ -97,7 +97,7 @@ public class VrpCrossover implements CrossoverInterface
 						if(subNode.getX() == nodeVrp.getX() && subNode.getY() == nodeVrp.getY())
 						{
 							nodesToRemove.add(nodeVrp);
-							removalCounter++;
+//							removalCounter++;
 						}
 					}
 				}
@@ -118,10 +118,10 @@ public class VrpCrossover implements CrossoverInterface
 		
 		List<Route> processedRoute = process(momGeneCopy);
 		Chromosome processed = new Chromosome(processedRoute, dad.getMap());
-		int dadA = dad.getNodeCount();
-		int momA = mom.getNodeCount();
-		int procA = processed.getNodeCount();
-		System.out.println(String.format("dadId=%d, momId=%d, dadB=%d, momB=%d, dadA=%d, momA=%d, procA=%d, removalCounter=%d, subRouteSize=%d, nodeCounter=%d", dad.hashCode(), mom.hashCode(), dadB, momB, dadA, momA, procA, removalCounter, subRoute.size(), nodeCounter));
+//		int dadA = dad.getNodeCount();
+//		int momA = mom.getNodeCount();
+//		int procA = processed.getNodeCount();
+//		System.out.println(String.format("dadId=%d, momId=%d, dadB=%d, momB=%d, dadA=%d, momA=%d, procA=%d, removalCounter=%d, subRouteSize=%d, nodeCounter=%d", dad.hashCode(), mom.hashCode(), dadB, momB, dadA, momA, procA, removalCounter, subRoute.size(), nodeCounter));
 		return new Chromosome[] {processed };
 	}
 
