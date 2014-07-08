@@ -29,12 +29,12 @@ public class VrpCrossover implements CrossoverInterface
 		ArrayList<NodeVrp> subRoute = null;
 		
 		if (numberNodes == 1) {
-			subRoute = new ArrayList(dadGene.get(randomRoute).getNodes());
+			subRoute = new ArrayList<NodeVrp>(dadGene.get(randomRoute).getNodes());
 		} else {
 			int randomSubRoutStart = rand.nextInt(numberNodes - 1);
 			int randomSubRoutEnd = randInt(randomSubRoutStart + 1, numberNodes - 1); 
 			
-			subRoute = new ArrayList(dadGene.get(randomRoute).getNodes()
+			subRoute = new ArrayList<NodeVrp>(dadGene.get(randomRoute).getNodes()
 					.subList(randomSubRoutStart, randomSubRoutEnd + 1));
 		}
 		
