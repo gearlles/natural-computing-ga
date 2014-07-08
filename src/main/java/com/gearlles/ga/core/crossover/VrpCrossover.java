@@ -69,30 +69,28 @@ public class VrpCrossover implements CrossoverInterface
 		momSelectedRoute.getNodes().addAll(momCloserRouteNodeIndex + 1, subRoute);
 
 		// remover nós duplicados
-		Iterator<Route> routeIterator = momGeneCopy.iterator();
-		while (routeIterator.hasNext())
-		{
-			Route route = routeIterator.next();
+		List<Route> routesToRemove = new ArrayList<Route>();
+		for (Route route : momGeneCopy) {
 			List<NodeVrp> nodes = route.getNodes();
-			Iterator<NodeVrp> nodesIterator = nodes.iterator();
-			while (nodesIterator.hasNext())
-			{
-				NodeVrp nodeVrp = nodesIterator.next();
+			List<NodeVrp> nodesToRemove = new ArrayList<NodeVrp>();
+			for (NodeVrp nodeVrp : nodes) {
 				// nessa verificação não haverá o problema de remover o que
 				// acabamos de colocar
 				// porque são objetos diferentes, então contains funcionará
-				if (subRoute.contains(nodeVrp))
-				{
-					nodesIterator.remove();
+				if (subRoute.contains(nodeVrp)) {
+					nodesToRemove.add(nodeVrp);
 				}
 			}
+			
+			nodes.removeAll(nodesToRemove);
 
 			// se não sobrou nós da rota, remove a rota
-			if (route.getNodes().isEmpty())
-			{
-				routeIterator.remove();
+			if (route.getNodes().isEmpty()) {
+				routesToRemove.add(route);
 			}
 		}
+		momGeneCopy.removeAll(routesToRemove);
+		
 		List<Route> processedRoute = process(momGeneCopy);
 		return new Chromosome[] { new Chromosome(processedRoute, dad.getMap()) };
 	}
