@@ -70,6 +70,7 @@ public class Chromosome implements Comparable<Chromosome>
 		this.gene = gene;
 		this.size = gene.size();
 		this.fitness = fitnessFunction.evaluate(gene, map.getDepot());
+		this.map = map;
 	}
 
 	public List<Route> getGene()
