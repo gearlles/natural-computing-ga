@@ -159,6 +159,7 @@ public class VrpCrossover implements CrossoverInterface
 			{
 				res.add(r);
 				r = new Route(new ArrayList<NodeVrp>(), capacity, route.getDistanceFunction());
+				r.addNode(node);
 			}
 		}
 
