@@ -15,6 +15,7 @@ import com.gearlles.ga.App;
 import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Population;
 import com.gearlles.ga.core.Route;
+import com.rits.cloning.Cloner;
 
 public class InsertionMutation implements MutationInterface
 {
@@ -24,8 +25,17 @@ public class InsertionMutation implements MutationInterface
 
 	public Chromosome mutate(Chromosome chromosome)
 	{
-		List<Route> gene = chromosome.getGene();
+//		System.out.println(String.format("B input=%d", chromosome.getNodeCount()));
+		List<Route> gene = new ArrayList<Route>();
+		for(Route r : chromosome.getGene())
+		{
+			Route route = new Route(new ArrayList<NodeVrp>(), r.getMaxCapacity(), r.getDistanceFunction());
+			route.getNodes().addAll(r.getNodes());
+			gene.add(route);
+		}
+		
 		int genesSize = gene.size();
+		ArrayList<Route> routesToRemove = new ArrayList<Route>();
 		for (int i = 0; i < genesSize; i++)
 		{
 			Route r = gene.get(i);
@@ -47,7 +57,7 @@ public class InsertionMutation implements MutationInterface
 				// cria
 				if (rand.nextDouble() < 1.0 / (V * 2) && genesSize < chromosome.getMap().getFleetSize())
 				{
-					addNodeAsNewRoute(chromosome, node);
+					addNodeAsNewRoute(chromosome, gene, node);
 				}
 				else
 				{
@@ -65,7 +75,7 @@ public class InsertionMutation implements MutationInterface
 						// rota
 						if (genesSize < chromosome.getMap().getFleetSize())
 						{
-							addNodeAsNewRoute(chromosome, node);
+							addNodeAsNewRoute(chromosome, gene, node);
 						}
 						else
 						{
@@ -89,17 +99,31 @@ public class InsertionMutation implements MutationInterface
 			}
 		}
 		
-		System.out.println("GENE-S: " + gene.toString());
+		for(Route r : gene)
+		{
+			if(r.getNodes().isEmpty())
+			{
+				routesToRemove.add(r);
+			}
+		}
+		
+		for(Route r : routesToRemove)
+		{
+			gene.remove(r);
+		}
+		Chromosome output = new Chromosome(gene, chromosome.getMap());
+//		System.out.println("GENE-S: " + gene.toString());
+//		System.out.println(String.format("A input=%d, output=%d", chromosome.getNodeCount(), output.getNodeCount()));
 
-		return new Chromosome(gene, chromosome.getMap());
+		return output;
 	}
 
-	private void addNodeAsNewRoute(Chromosome chromosome, NodeVrp node)
+	private void addNodeAsNewRoute(Chromosome chromosome, List<Route> gene, NodeVrp node)
 	{
 		Route newRoute = new Route(new ArrayList<NodeVrp>(), chromosome.getMap().getVehicleCapacity(), chromosome
 				.getMap().getFunction());
 		newRoute.addNode(node);
-		chromosome.getGene().add(newRoute);
+		gene.add(newRoute);
 	}
 
 }
