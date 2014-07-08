@@ -19,6 +19,8 @@ public class VrpCrossover implements CrossoverInterface
 
 	public Chromosome[] mate(Chromosome dad, Chromosome mom)
 	{
+		int dadB = dad.getNodeCount();
+		int momB = mom.getNodeCount();
 		Cloner cloner = new Cloner();
 		List<Route> dadGene = cloner.deepClone(dad.getGene());
 		List<Route> momGeneCopy = cloner.deepClone(mom.getGene());
@@ -86,9 +88,12 @@ public class VrpCrossover implements CrossoverInterface
 				if (i != momCloserRouteIndex
 						|| (i == momCloserRouteIndex && (j <= momCloserRouteNodeIndex || j > momCloserRouteNodeIndex + subRoute.size())))
 				{
-					if (subRoute.contains(nodeVrp))
+					for(NodeVrp subNode : subRoute)
 					{
-						nodesToRemove.add(nodeVrp);
+						if(subNode.getX() == nodeVrp.getX() && subNode.getY() == nodeVrp.getY())
+						{
+							nodesToRemove.add(nodeVrp);
+						}
 					}
 				}
 			}
@@ -103,8 +108,15 @@ public class VrpCrossover implements CrossoverInterface
 		}
 		momGeneCopy.removeAll(routesToRemove);
 
+		
+		
 		List<Route> processedRoute = process(momGeneCopy);
-		return new Chromosome[] { new Chromosome(processedRoute, dad.getMap()) };
+		Chromosome processed = new Chromosome(processedRoute, dad.getMap());
+		int dadA = dad.getNodeCount();
+		int momA = mom.getNodeCount();
+		int procA = processed.getNodeCount();
+		System.out.println(String.format("dadB=%d, momB=%d, dadA=%d, momA=%d, procA=%d", dadB, momB, dadA, momA, procA));
+		return new Chromosome[] {processed };
 	}
 
 	private List<Route> process(List<Route> momGeneCopy)
@@ -115,6 +127,7 @@ public class VrpCrossover implements CrossoverInterface
 			if (route.getLoad() <= route.getMaxCapacity())
 			{
 				finalRoutes.add(route);
+				continue;
 			}
 
 			List<Route> res = splitRoute(route);

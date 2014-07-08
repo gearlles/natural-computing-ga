@@ -23,6 +23,7 @@ public class InversionMutation implements MutationInterface {
 			Collections.reverse(r.getNodes());
 		}
 
+//		System.out.println("GENE-S: " + gene.toString());
 		return new Chromosome(gene, chromosome.getMap());
 	}
 

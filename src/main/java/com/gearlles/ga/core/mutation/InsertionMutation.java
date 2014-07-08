@@ -88,6 +88,8 @@ public class InsertionMutation implements MutationInterface
 				}
 			}
 		}
+		
+		System.out.println("GENE-S: " + gene.toString());
 
 		return new Chromosome(gene, chromosome.getMap());
 	}

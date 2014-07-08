@@ -72,6 +72,17 @@ public class Chromosome implements Comparable<Chromosome>
 		this.fitness = fitnessFunction.evaluate(gene, map.getDepot());
 		this.map = map;
 	}
+	
+	public int getNodeCount()
+	{
+		int sum = 0;
+		for(Route r : this.gene)
+		{
+			sum += r.getNodes().size();
+		}
+		
+		return sum;
+	}
 
 	public List<Route> getGene()
 	{
