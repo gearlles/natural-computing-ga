@@ -109,25 +109,22 @@ public class VrpCrossover implements CrossoverInterface
 
 	private List<Route> process(List<Route> momGeneCopy)
 	{
-		Iterator<Route> routeIterator = momGeneCopy.iterator();
-		while (routeIterator.hasNext())
+		ArrayList<Route> finalRoutes = new ArrayList<Route>();
+		for(Route route : momGeneCopy)
 		{
-			Route route = (Route) routeIterator.next();
-
 			if (route.getLoad() <= route.getMaxCapacity())
 			{
-				continue;
+				finalRoutes.add(route);
 			}
-
-			routeIterator.remove();
 
 			List<Route> res = splitRoute(route);
 			for (Route rout : res)
 			{
-				momGeneCopy.add(rout);
+				finalRoutes.add(rout);
 			}
 		}
-		return momGeneCopy;
+		
+		return finalRoutes;
 	}
 
 	private List<Route> splitRoute(Route route)
