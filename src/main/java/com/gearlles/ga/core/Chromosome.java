@@ -65,7 +65,7 @@ public class Chromosome implements Comparable<Chromosome>
 
 	}
 
-	public Chromosome(List<Route> gene)
+	public Chromosome(List<Route> gene, MapVrp map)
 	{
 		this.gene = gene;
 		this.size = gene.size();

@@ -89,7 +89,7 @@ public class InsertionMutation implements MutationInterface
 			}
 		}
 
-		return new Chromosome(gene);
+		return new Chromosome(gene, chromosome.getMap());
 	}
 
 	private void addNodeAsNewRoute(Chromosome chromosome, NodeVrp node)

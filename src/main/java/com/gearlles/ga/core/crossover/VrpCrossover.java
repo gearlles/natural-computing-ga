@@ -94,7 +94,7 @@ public class VrpCrossover implements CrossoverInterface
 			}
 		}
 		List<Route> processedRoute = process(momGeneCopy);
-		return new Chromosome[] { new Chromosome(processedRoute) };
+		return new Chromosome[] { new Chromosome(processedRoute, dad.getMap()) };
 	}
 
 	private List<Route> process(List<Route> momGeneCopy)

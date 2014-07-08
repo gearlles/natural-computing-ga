@@ -39,7 +39,7 @@ public class TwoPoint implements CrossoverInterface {
 		System.arraycopy(dadGene, pivot1, child2, pivot1, (pivot2 - pivot1));
 		System.arraycopy(momGene, pivot2, child2, pivot2, (dadGene.size() - pivot2));
 
-		return new Chromosome[]{new Chromosome(child1), new Chromosome(child2)};
+		return new Chromosome[]{new Chromosome(child1, dad.getMap()), new Chromosome(child2, dad.getMap())};
 	}
 
 }
