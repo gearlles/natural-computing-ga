@@ -10,6 +10,7 @@ import br.poli.ecomp.nestor.cn.graph.distance.DistanceFunction;
 
 import com.gearlles.ga.core.Chromosome;
 import com.gearlles.ga.core.Route;
+import com.rits.cloning.Cloner;
 
 public class VrpCrossover implements CrossoverInterface
 {
@@ -18,9 +19,9 @@ public class VrpCrossover implements CrossoverInterface
 
 	public Chromosome[] mate(Chromosome dad, Chromosome mom)
 	{
-		List<Route> dadGene = dad.getGene();
-		List<Route> momGene = mom.getGene();
-		List<Route> momGeneCopy = new ArrayList<Route>(momGene);
+		Cloner cloner = new Cloner();
+		List<Route> dadGene = cloner.deepClone(dad.getGene());
+		List<Route> momGeneCopy = cloner.deepClone(mom.getGene());
 
 		DistanceFunction distanceFunction = dad.getMap().getFunction();
 		int randomRoute = rand.nextInt(dadGene.size());
