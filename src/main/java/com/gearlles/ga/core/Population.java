@@ -55,14 +55,7 @@ public class Population {
 			if (rand.nextDouble() <= crossoverRatio) {
 				Chromosome[] parents = Population.selection.select(population);
 				Chromosome[] children = Chromosome.crossover.mate(parents[0], parents[1]);
-
 				nextPopulation[i] = Chromosome.mutation.mutate(children[0]);
-
-				// Repeat for the second child, if there is enough space in the
-				// population.
-				if (i + 1 < nextPopulation.length) {
-					nextPopulation[++i] = Chromosome.mutation.mutate(children[1]);
-				}
 			} else {
 				nextPopulation[i] = Chromosome.mutation.mutate(population[i]);
 			}
