@@ -26,18 +26,21 @@ public class VrpCrossover implements CrossoverInterface
 		int randomRoute = rand.nextInt(dadGene.size());
 
 		// 0, 1, 2, 3, 4, 5 size = 6
-		int randomSubRoutStart = rand.nextInt(dadGene.get(randomRoute).getNodes().size() - 1); // 0 até 4
+		int randomSubRoutStart = rand.nextInt(dadGene.get(randomRoute).getNodes().size() - 1); // 0
+																								// até
+																								// 4
 		int randomSubRoutEnd = randInt(randomSubRoutStart + 1, dadGene.get(randomRoute).getNodes().size() - 1); // do
-																					// número
-																					// escolhido
-																					// acima,
-																					// até
-																					// o
-																					// fim
-																					// (inicio,
-																					// fim[
+		// número
+		// escolhido
+		// acima,
+		// até
+		// o
+		// fim
+		// (inicio,
+		// fim[
 
-		ArrayList<NodeVrp> subRoute = new ArrayList(dadGene.get(randomRoute).getNodes().subList(randomSubRoutStart, randomSubRoutEnd + 1));
+		ArrayList<NodeVrp> subRoute = new ArrayList(dadGene.get(randomRoute).getNodes()
+				.subList(randomSubRoutStart, randomSubRoutEnd + 1));
 		NodeVrp a1 = subRoute.get(0);
 
 		// achar o nó mais próximo de a1
@@ -70,27 +73,37 @@ public class VrpCrossover implements CrossoverInterface
 
 		// remover nós duplicados
 		List<Route> routesToRemove = new ArrayList<Route>();
-		for (Route route : momGeneCopy) {
+		for (int i = 0; i < momGeneCopy.size(); i++)
+		{
+			Route route = momGeneCopy.get(i);
 			List<NodeVrp> nodes = route.getNodes();
 			List<NodeVrp> nodesToRemove = new ArrayList<NodeVrp>();
-			for (NodeVrp nodeVrp : nodes) {
+			for (int j = 0; j < nodes.size(); j++)
+			{
+				NodeVrp nodeVrp = nodes.get(j);
 				// nessa verificação não haverá o problema de remover o que
 				// acabamos de colocar
 				// porque são objetos diferentes, então contains funcionará
-				if (subRoute.contains(nodeVrp)) {
-					nodesToRemove.add(nodeVrp);
+				if (i != momCloserRouteIndex
+						|| (i == momCloserRouteIndex && (j <= momCloserRouteNodeIndex || j > momCloserRouteNodeIndex + subRoute.size())))
+				{
+					if (subRoute.contains(nodeVrp))
+					{
+						nodesToRemove.add(nodeVrp);
+					}
 				}
 			}
-			
+
 			nodes.removeAll(nodesToRemove);
 
 			// se não sobrou nós da rota, remove a rota
-			if (route.getNodes().isEmpty()) {
+			if (route.getNodes().isEmpty())
+			{
 				routesToRemove.add(route);
 			}
 		}
 		momGeneCopy.removeAll(routesToRemove);
-		
+
 		List<Route> processedRoute = process(momGeneCopy);
 		return new Chromosome[] { new Chromosome(processedRoute, dad.getMap()) };
 	}
