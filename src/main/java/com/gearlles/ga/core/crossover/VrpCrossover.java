@@ -24,24 +24,21 @@ public class VrpCrossover implements CrossoverInterface
 
 		DistanceFunction distanceFunction = dad.getMap().getFunction();
 		int randomRoute = rand.nextInt(dadGene.size());
-
-		// 0, 1, 2, 3, 4, 5 size = 6
 		int numberNodes = dadGene.get(randomRoute).getNodes().size();
-		int randomSubRoutStart = rand.nextInt(numberNodes - 1); // 0
-																								// até
-																								// 4
-		int randomSubRoutEnd = randInt(randomSubRoutStart + 1, numberNodes - 1); // do
-		// número
-		// escolhido
-		// acima,
-		// até
-		// o
-		// fim
-		// (inicio,
-		// fim[
 		
-		ArrayList<NodeVrp> subRoute = numberNodes == 1? new ArrayList(dadGene.get(randomRoute).getNodes()) : new ArrayList(dadGene.get(randomRoute).getNodes()
-				.subList(randomSubRoutStart, randomSubRoutEnd + 1));
+		ArrayList<NodeVrp> subRoute = null;
+		
+		if (numberNodes == 1) {
+			subRoute = new ArrayList(dadGene.get(randomRoute).getNodes());
+		} else {
+			int randomSubRoutStart = rand.nextInt(numberNodes - 1);
+			int randomSubRoutEnd = randInt(randomSubRoutStart + 1, numberNodes - 1); 
+			
+			subRoute = new ArrayList(dadGene.get(randomRoute).getNodes()
+					.subList(randomSubRoutStart, randomSubRoutEnd + 1));
+		}
+		
+		
 		NodeVrp a1 = subRoute.get(0);
 
 		// achar o nó mais próximo de a1
