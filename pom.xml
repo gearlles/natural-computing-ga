@@ -43,8 +43,8 @@
 	</dependency>
 	<dependency>
 		<groupId>br.poli.ecomp.nestor.cn</groupId>
-		<artifactId>cn-aco</artifactId>
-		<version>1.0.0</version>
+		<artifactId>vrp-commons</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
 	</dependency>
   </dependencies>
   
