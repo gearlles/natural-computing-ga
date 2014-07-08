@@ -26,8 +26,8 @@ public class VrpCrossover implements CrossoverInterface
 		int randomRoute = rand.nextInt(dadGene.size());
 
 		// 0, 1, 2, 3, 4, 5 size = 6
-		int randomSubRoutStart = rand.nextInt(dadGene.size() - 1); // 0 até 4
-		int randomSubRoutEnd = randInt(randomSubRoutStart + 1, dadGene.size() - 1); // do
+		int randomSubRoutStart = rand.nextInt(dadGene.get(randomRoute).getNodes().size() - 1); // 0 até 4
+		int randomSubRoutEnd = randInt(randomSubRoutStart + 1, dadGene.get(randomRoute).getNodes().size() - 1); // do
 																					// número
 																					// escolhido
 																					// acima,
